@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { TabsPageRoutingModule } from './tabs-routing.module';
-import { TabsPage } from './tabs.page';
+import { EspPageRoutingModule } from './esp-routing.module';
+import { EspPage } from './esp.page';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { TabsPage } from './tabs.page';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    TabsPageRoutingModule
+    EspPageRoutingModule
   ],
-  declarations: [TabsPage]
+  declarations: [EspPage]
 })
-export class TabsPageModule {}
+export class EspPageModule {}

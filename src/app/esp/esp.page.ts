@@ -1,15 +1,15 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { takeUntil } from 'rxjs/operators'
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss']
+  selector: 'app-esp',
+  templateUrl: 'esp.page.html',
+  styleUrls: ['esp.page.scss']
 })
-export class TabsPage implements OnDestroy {
+export class EspPage implements OnDestroy {
 
   public form: FormGroup;
   private destroy = new Subject();
@@ -110,7 +110,7 @@ export class TabsPage implements OnDestroy {
   }
 
   private getStatus(porta: number): number {
-    const re = this.getPorta(porta)
+    const re = this.getPorta(porta);
     return re.status;
   }
 
