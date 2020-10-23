@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { takeUntil } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   templateUrl: 'esp.page.html',
   styleUrls: ['esp.page.scss']
 })
-export class EspPage implements OnDestroy {
+export class EspPage implements OnInit, OnDestroy {
 
   public form: FormGroup;
   private destroy = new Subject();
@@ -22,6 +22,10 @@ export class EspPage implements OnDestroy {
     private http: HttpClient,
   ) {
     this.initform();
+  }
+
+  ngOnInit(): void {
+    this.refresh();
   }
 
   ngOnDestroy(): void {
@@ -46,22 +50,19 @@ export class EspPage implements OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe(change => {
-        console.log('changes', change);
-        console.log('form', this.form.value);
-
-        if (!this.old || change.cinco !== this.old && this.old.cinco) {
+        if (!this.old || (change.cinco !== this.old.cinco)) {
           this.send(5, change.cinco);
           return;
         }
-        if (!this.old || change.seis !== this.old && this.old.seis) {
+        if (!this.old || (change.seis !== this.old.seis)) {
           this.send(6, change.seis);
           return;
         }
-        if (!this.old || change.sete !== this.old && this.old.sete) {
+        if (!this.old || (change.sete !== this.old.sete)) {
           this.send(7, change.sete);
           return;
         }
-        if (!this.old || change.oito !== this.old && this.old.oito) {
+        if (!this.old || (change.oito !== this.old.oito)) {
           this.send(8, change.oito);
           return;
         }
@@ -77,13 +78,11 @@ export class EspPage implements OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe(resp => {
-        console.log(resp);
         this.refresh();
       });
   }
 
   public onSubmit(): void {
-    console.log('onSubmit');
   }
 
   public refresh(): void {
@@ -92,13 +91,11 @@ export class EspPage implements OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe(resp => {
-        console.log(resp);
         this.objeto = resp;
-        this.form.get('cinco').setValue(this.getStatus(5) === 1, {emitEvent: false});
-        this.form.get('seis').setValue(this.getStatus(6) === 1, {emitEvent: false});
-        this.form.get('sete').setValue(this.getStatus(7) === 1, {emitEvent: false});
-        this.form.get('oito').setValue(this.getStatus(8) === 1, {emitEvent: false});
-
+        this.form.get('cinco').setValue(this.getStatus(5) === 1, { emitEvent: false });
+        this.form.get('seis').setValue(this.getStatus(6) === 1, { emitEvent: false });
+        this.form.get('sete').setValue(this.getStatus(7) === 1, { emitEvent: false });
+        this.form.get('oito').setValue(this.getStatus(8) === 1, { emitEvent: false });
         this.old = this.form.value;
       });
 
